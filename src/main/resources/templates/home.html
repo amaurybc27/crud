@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org">
+<head>
+	<title>TEST</title>
+</head>
+<body>
+	<h1>REGISTRO</h1>
+
+	<form action="#" th:action="@{/saveUser}" th:object="${user}" method="POST">
+		<input type="hidden" th:field="*{userId}">
+		<b>Nombre: <input type="text" th:field="*{userName}" /></b> 
+		<input type="submit" />
+	</form>
+
+	<br/>
+	<br/>
+	
+	<h1>USUARIOS</h1>
+	<table>
+		<tr>
+			<th>ID</th>
+			<th>NAME</th>
+			<th></th>
+		</tr>
+		<tr th:each="us : ${users}">
+			<td th:text="${us.userId}" />
+			<td th:text="${us.userName}" />
+			<td><a th:href="@{/deleteUser/{id}(id=${us.userId})}">eliminar</a></td>
+			<td>
+				<form th:action="@{/updateUser}" th:object="${user}" method="post">
+					<input type="hidden" name="userId" th:value="${us.userId}">
+                    <input type="hidden" name="userName" th:value="${us.userName}">
+                    <button type="submit">Update</button>
+               	</form>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>
